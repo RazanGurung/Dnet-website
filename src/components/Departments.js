@@ -46,7 +46,7 @@ export default function Departments() {
                   
                   <div className="col-lg-4 text-center order-1 order-lg-2">
                     <Image 
-                      src="/assets/img/departments-1.svg" 
+                      src="/assets/img/departments-1.jpg" 
                       alt="Tilak - Lead Network Technician" 
                       width={400}
                       height={500}

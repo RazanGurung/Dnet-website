@@ -11,7 +11,7 @@ export default function Footer() {
           <div className="col-lg-4 col-md-6">
             <Link href="/" className="logo d-flex align-items-center text-decoration-none mb-2">
               <Image 
-                src="/assets/img/logo.svg" 
+                src="/assets/img/logo.png" 
                 alt="DNET logo" 
                 width={36} 
                 height={36} 

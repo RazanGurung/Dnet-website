@@ -59,7 +59,7 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="logo d-flex align-items-center me-auto">
             <Image 
-              src="/assets/img/logo.svg" 
+              src="/assets/img/logo.png" 
               alt="DNET logo" 
               width={150} 
               height={40}

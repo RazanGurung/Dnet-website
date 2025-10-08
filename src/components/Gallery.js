@@ -2,15 +2,14 @@ import Image from 'next/image'
 
 export default function Gallery() {
   const images = [
-    '/assets/img/gallery/gallery-1.svg',
-    '/assets/img/gallery/gallery-2.svg',
-    '/assets/img/gallery/gallery-3.svg',
-    '/assets/img/gallery/gallery-4.svg',
-    '/assets/img/gallery/gallery-5.svg',
-    '/assets/img/gallery/gallery-6.svg',
-    '/assets/img/gallery/gallery-7.svg',
-    '/assets/img/gallery/gallery-9.svg',
-    '/assets/img/gallery/gallery-8.svg'
+    '/assets/img/gallery/gallery-1.jpg',
+    '/assets/img/gallery/gallery-2.jpg',
+    '/assets/img/gallery/gallery-3.jpg',
+    '/assets/img/gallery/gallery-4.jpg',
+    '/assets/img/gallery/gallery-5.jpg',
+    '/assets/img/gallery/gallery-6.jpg',
+    '/assets/img/gallery/gallery-7.jpg',
+    '/assets/img/gallery/gallery-8.jpg',
   ]
 
   return (
