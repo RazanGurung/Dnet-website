@@ -8,31 +8,31 @@ export default function Testimonials() {
     {
       name: 'Prakash Silwal',
       role: 'CEO & Founder',
-      image: '/assets/img/testimonials/testimonials-1.JPG',
+      image: '/assets/img/testimonials/testimonials-1.svg',
       text: 'We hired Tilak to upgrade our building\'s entire network infrastructure, and the results were flawless. He delivered ahead of schedule and with absolute precision.'
     },
     {
       name: 'Razan Gurung',
       role: '',
-      image: '/assets/img/testimonials/testimonials-2.jpg',
+      image: '/assets/img/testimonials/testimonials-2.svg',
       text: 'Tilak handled the structured cabling and CCTV installation for our retail space. He was professional, knowledgeable, and the system works perfectly.'
     },
     {
       name: 'Aashish Basnet',
       role: 'IT Supervisor',
-      image: '/assets/img/testimonials/testimonials-3.jpg',
+      image: '/assets/img/testimonials/testimonials-3.svg',
       text: 'Our office was facing constant connectivity issues. Tilak not only resolved the problem but also optimized our network for future growth. Truly reliable service.'
     },
     {
       name: 'Bishal Thapa',
       role: 'Homeowner',
-      image: '/assets/img/testimonials/testimonials-4.jpg',
+      image: '/assets/img/testimonials/testimonials-4.svg',
       text: 'I needed a secure home network and surveillance system. Tilak explained everything clearly and executed the job efficiently. Highly recommend him for residential work.'
     },
     {
       name: 'Sudan Khatri',
       role: 'Startup Founder',
-      image: '/assets/img/testimonials/testimonials-5.jpg',
+      image: '/assets/img/testimonials/testimonials-5.svg',
       text: 'As a former Spectrum tech, Tilak brings enterprise-level skill to small business needs. His 24/7 support and professionalism stand out.'
     }
   ]

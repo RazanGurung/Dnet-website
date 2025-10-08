@@ -46,7 +46,7 @@ export default function Departments() {
                   
                   <div className="col-lg-4 text-center order-1 order-lg-2">
                     <Image 
-                      src="/assets/img/departments-1.jpg" 
+                      src="/assets/img/departments-1.svg" 
                       alt="Tilak - Lead Network Technician" 
                       width={400}
                       height={500}
@@ -55,12 +55,6 @@ export default function Departments() {
                   </div>
                 </div>
               </div>
-
-              {/* Additional tab panes if needed */}
-              <div className="tab-pane" id="departments-tab-2"></div>
-              <div className="tab-pane" id="departments-tab-3"></div>
-              <div className="tab-pane" id="departments-tab-4"></div>
-              <div className="tab-pane" id="departments-tab-5"></div>
             </div>
           </div>
         </div>

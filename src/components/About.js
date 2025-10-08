@@ -10,7 +10,7 @@ export default function About() {
           <div className="col-lg-6 position-relative align-self-start" data-aos="fade-up" data-aos-delay="200">
             <figure className="position-relative m-0">
               <Image 
-                src="/assets/img/about.jpg" 
+                src="/assets/img/about.svg" 
                 className="img-fluid" 
                 alt="DNET technicians working on a network rack" 
                 width={800}

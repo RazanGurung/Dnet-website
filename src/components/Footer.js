@@ -11,7 +11,7 @@ export default function Footer() {
           <div className="col-lg-4 col-md-6">
             <Link href="/" className="logo d-flex align-items-center text-decoration-none mb-2">
               <Image 
-                src="/assets/img/logo.png" 
+                src="/assets/img/logo.svg" 
                 alt="DNET logo" 
                 width={36} 
                 height={36} 
@@ -149,7 +149,7 @@ export default function Footer() {
       {/* Copyright */}
       <div className="container copyright text-center mt-4">
         <p>
-          © <span>Copyright</span> <strong className="px-1 sitename">Medilab</strong>{' '}
+          © <span>Copyright</span> <strong className="px-1 sitename">Digital Network Engineering Technology</strong>{' '}
           <span>All Rights Reserved</span>
         </p>
         <div className="credits">

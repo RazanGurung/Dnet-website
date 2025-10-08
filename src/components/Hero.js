@@ -6,7 +6,7 @@ export default function Hero() {
     <section id="hero" className="hero section light-background">
       {/* Background Image */}
       <Image 
-        src="/assets/img/hero-bg.jpg" 
+        src="/assets/img/hero-bg.svg" 
         alt="" 
         fill
         priority
