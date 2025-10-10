@@ -3,6 +3,3 @@ node_modules/
 
 # Ignore environment files
 .env
-
-# Ignore image folder
-public/assets/img/
