@@ -192,7 +192,7 @@
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	!function() {
-/******/ 		__webpack_require__.h = function() { return "d5c706548f3f0e8c"; }
+/******/ 		__webpack_require__.h = function() { return "fe594fe37c842747"; }
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
@@ -791,7 +791,7 @@
 /******/ 		};
 /******/ 		
 /******/ 		__webpack_require__.f.miniCss = function(chunkId, promises) {
-/******/ 			var cssChunks = {"_app-pages-browser_node_modules_aos_dist_aos_css":1,"_app-pages-browser_node_modules_glightbox_dist_css_glightbox_min_css":1,"_app-pages-browser_node_modules_swiper_swiper_css":1,"_app-pages-browser_node_modules_swiper_modules_pagination_css":1};
+/******/ 			var cssChunks = {"_app-pages-browser_node_modules_aos_dist_aos_css":1,"_app-pages-browser_node_modules_glightbox_dist_css_glightbox_min_css":1,"_app-pages-browser_node_modules_swiper_swiper_css":1,"_app-pages-browser_node_modules_swiper_modules_pagination_css":1,"_app-pages-browser_node_modules_swiper_modules_navigation_css":1};
 /******/ 			if(installedCssChunks[chunkId]) promises.push(installedCssChunks[chunkId]);
 /******/ 			else if(installedCssChunks[chunkId] !== 0 && cssChunks[chunkId]) {
 /******/ 				promises.push(installedCssChunks[chunkId] = loadStylesheet(chunkId).then(function() {

@@ -38,6 +38,13 @@
       "static/chunks/_app-pages-browser_node_modules_swiper_swiper_css.js"
     ]
   },
+  "components\\ClientInit.js -> swiper/css/navigation": {
+    "id": "components\\ClientInit.js -> swiper/css/navigation",
+    "files": [
+      "static/css/_app-pages-browser_node_modules_swiper_modules_navigation_css.css",
+      "static/chunks/_app-pages-browser_node_modules_swiper_modules_navigation_css.js"
+    ]
+  },
   "components\\ClientInit.js -> swiper/css/pagination": {
     "id": "components\\ClientInit.js -> swiper/css/pagination",
     "files": [

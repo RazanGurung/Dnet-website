@@ -19,16 +19,12 @@ export default function Header() {
 
   const toggleMobileNav = () => {
     setIsMobileNavActive(!isMobileNavActive)
-    if (!isMobileNavActive) {
-      document.body.classList.add('mobile-nav-active')
-    } else {
-      document.body.classList.remove('mobile-nav-active')
-    }
+    document.body.style.overflow = !isMobileNavActive ? 'hidden' : ''
   }
 
   const closeMobileNav = () => {
     setIsMobileNavActive(false)
-    document.body.classList.remove('mobile-nav-active')
+    document.body.style.overflow = ''
   }
 
   return (
@@ -57,7 +53,7 @@ export default function Header() {
       <div className="branding d-flex align-items-center">
         <div className="container position-relative d-flex align-items-center justify-content-between">
           {/* Logo */}
-          <Link href="/" className="logo d-flex align-items-center me-auto">
+          <Link href="/" className="logo d-flex align-items-center me-auto" onClick={closeMobileNav}>
             <Image 
               src="/assets/img/logo.png" 
               alt="DNET logo" 
@@ -77,9 +73,9 @@ export default function Header() {
               
               {/* Services Dropdown */}
               <li className="dropdown">
-                <a href="#">
+                <a href="#" className="d-flex align-items-center">
                   <span>Our Services</span> 
-                  <i className="bi bi-chevron-down toggle-dropdown"></i>
+                  <i className="bi bi-chevron-down toggle-dropdown ms-1"></i>
                 </a>
                 <ul>
                   <li>
@@ -122,14 +118,17 @@ export default function Header() {
 
               <li><Link href="/#contact" onClick={closeMobileNav}>Contact</Link></li>
             </ul>
-
-            {/* Mobile Nav Toggle */}
-            <i 
-              className={`mobile-nav-toggle d-xl-none bi ${isMobileNavActive ? 'bi-x' : 'bi-list'}`}
-              onClick={toggleMobileNav}
-              aria-label="Toggle navigation"
-            ></i>
           </nav>
+
+          {/* Mobile Nav Toggle */}
+          <button
+            className={`mobile-nav-toggle d-xl-none`}
+            onClick={toggleMobileNav}
+            aria-label="Toggle navigation"
+            aria-expanded={isMobileNavActive}
+          >
+            <i className={`bi ${isMobileNavActive ? 'bi-x' : 'bi-list'}`}></i>
+          </button>
         </div>
       </div>
     </header>

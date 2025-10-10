@@ -8,45 +8,75 @@ export default function ClientInit() {
       try {
         // Import and initialize AOS (Animate On Scroll)
         const AOS = (await import('aos')).default
-        // Import AOS CSS
         await import('aos/dist/aos.css')
         
         AOS.init({
           duration: 600,
           easing: 'ease-in-out',
           once: true,
-          mirror: false
+          mirror: false,
+          offset: 100
         })
 
         // Import and initialize GLightbox
         const GLightbox = (await import('glightbox')).default
-        // Import GLightbox CSS
         await import('glightbox/dist/css/glightbox.min.css')
         
         GLightbox({
-          selector: '.glightbox'
+          selector: '.glightbox',
+          touchNavigation: true,
+          loop: true,
+          autoplayVideos: true
         })
 
-        // Import and initialize Swiper (if needed on page)
+        // Import Swiper for any .init-swiper elements (if not handled by component)
         const Swiper = (await import('swiper')).default
-        const { Pagination, Autoplay } = await import('swiper/modules')
-        // Import Swiper CSS
+        const { Pagination, Autoplay, Navigation } = await import('swiper/modules')
         await import('swiper/css')
         await import('swiper/css/pagination')
+        await import('swiper/css/navigation')
         
-        // Initialize all Swipers on the page
-        document.querySelectorAll('.init-swiper').forEach((swiperElement) => {
+        // Initialize Swipers that use the .init-swiper class
+        document.querySelectorAll('.init-swiper:not(.swiper-initialized)').forEach((swiperElement) => {
+          // Default configuration
+          const defaultConfig = {
+            modules: [Pagination, Autoplay, Navigation],
+            loop: true,
+            speed: 600,
+            autoplay: {
+              delay: 5000,
+              disableOnInteraction: false
+            },
+            slidesPerView: 'auto',
+            pagination: {
+              el: '.swiper-pagination',
+              type: 'bullets',
+              clickable: true
+            }
+          }
+
+          // Try to get config from data attribute or script tag
           const configElement = swiperElement.querySelector('.swiper-config')
+          let config = defaultConfig
+
           if (configElement) {
             try {
-              const config = JSON.parse(configElement.innerHTML.trim())
-              new Swiper(swiperElement, {
-                modules: [Pagination, Autoplay],
-                ...config
-              })
+              const configText = configElement.textContent || configElement.innerHTML
+              const parsedConfig = JSON.parse(configText)
+              config = {
+                ...defaultConfig,
+                ...parsedConfig,
+                modules: [Pagination, Autoplay, Navigation]
+              }
             } catch (error) {
-              console.error('Swiper config error:', error)
+              console.warn('Could not parse Swiper config, using defaults:', error)
             }
+          }
+
+          try {
+            new Swiper(swiperElement, config)
+          } catch (error) {
+            console.error('Swiper initialization error:', error)
           }
         })
       } catch (error) {
@@ -69,6 +99,7 @@ export default function ClientInit() {
 
       window.addEventListener('load', toggleScrollTop)
       window.addEventListener('scroll', toggleScrollTop)
+      toggleScrollTop() // Initial check
 
       scrollTop.addEventListener('click', (e) => {
         e.preventDefault()
@@ -83,41 +114,68 @@ export default function ClientInit() {
     const preloader = document.querySelector('#preloader')
     if (preloader) {
       const removePreloader = () => {
-        preloader.remove()
+        preloader.style.opacity = '0'
+        setTimeout(() => preloader.remove(), 300)
       }
-      window.addEventListener('load', removePreloader)
+      
+      if (document.readyState === 'complete') {
+        removePreloader()
+      } else {
+        window.addEventListener('load', removePreloader)
+      }
+      
       // Fallback timeout
       setTimeout(removePreloader, 2000)
     }
 
     // FAQ toggle functionality
-    document.querySelectorAll('.faq-item h3, .faq-item .faq-toggle').forEach((faqItem) => {
+    const faqItems = document.querySelectorAll('.faq-item h3, .faq-item .faq-toggle')
+    faqItems.forEach((faqItem) => {
       faqItem.addEventListener('click', () => {
-        faqItem.parentNode.classList.toggle('faq-active')
+        const parent = faqItem.closest('.faq-item')
+        if (parent) {
+          parent.classList.toggle('faq-active')
+        }
       })
     })
 
     // Dropdown toggle for mobile navigation
-    document.querySelectorAll('.navmenu .toggle-dropdown').forEach((navmenu) => {
-      navmenu.addEventListener('click', function(e) {
+    const dropdownToggles = document.querySelectorAll('.navmenu .toggle-dropdown')
+    dropdownToggles.forEach((toggle) => {
+      toggle.addEventListener('click', function(e) {
         e.preventDefault()
-        this.parentNode.classList.toggle('active')
-        this.parentNode.nextElementSibling?.classList.toggle('dropdown-active')
-        e.stopImmediatePropagation()
+        e.stopPropagation()
+        
+        const parent = this.closest('.dropdown')
+        if (parent) {
+          parent.classList.toggle('active')
+          const dropdownMenu = parent.querySelector('ul')
+          if (dropdownMenu) {
+            dropdownMenu.classList.toggle('dropdown-active')
+          }
+        }
       })
     })
 
     // Navmenu scrollspy (highlight active section in nav)
-    const navmenulinks = document.querySelectorAll('.navmenu a')
+    const navmenulinks = document.querySelectorAll('.navmenu a[href^="#"]')
     
     function navmenuScrollspy() {
+      const position = window.scrollY + 200
+      
       navmenulinks.forEach(navmenulink => {
         if (!navmenulink.hash) return
+        
         const section = document.querySelector(navmenulink.hash)
         if (!section) return
-        const position = window.scrollY + 200
-        if (position >= section.offsetTop && position <= (section.offsetTop + section.offsetHeight)) {
-          document.querySelectorAll('.navmenu a.active').forEach(link => link.classList.remove('active'))
+        
+        const sectionTop = section.offsetTop
+        const sectionBottom = sectionTop + section.offsetHeight
+        
+        if (position >= sectionTop && position < sectionBottom) {
+          document.querySelectorAll('.navmenu a.active').forEach(link => {
+            link.classList.remove('active')
+          })
           navmenulink.classList.add('active')
         } else {
           navmenulink.classList.remove('active')
@@ -127,10 +185,10 @@ export default function ClientInit() {
     
     window.addEventListener('load', navmenuScrollspy)
     document.addEventListener('scroll', navmenuScrollspy)
+    navmenuScrollspy() // Initial check
 
     // Cleanup function
     return () => {
-      window.removeEventListener('load', () => {})
       window.removeEventListener('scroll', () => {})
       document.removeEventListener('scroll', navmenuScrollspy)
     }
