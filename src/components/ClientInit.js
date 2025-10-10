@@ -6,19 +6,21 @@ export default function ClientInit() {
   useEffect(() => {
     const initLibraries = async () => {
       try {
-        // Import and initialize AOS (Animate On Scroll)
+        // Import and initialize AOS with optimized settings
         const AOS = (await import('aos')).default
         await import('aos/dist/aos.css')
         
         AOS.init({
-          duration: 600,
-          easing: 'ease-in-out',
-          once: true,
+          duration: 400,           // Reduced from 600ms
+          easing: 'ease-out',      // Faster easing
+          once: true,              // Animate only once
           mirror: false,
-          offset: 100
+          offset: 50,              // Reduced from 100
+          delay: 0,                // No delay
+          disable: 'mobile'        // Disable on mobile for better performance
         })
 
-        // Import and initialize GLightbox
+        // Import GLightbox
         const GLightbox = (await import('glightbox')).default
         await import('glightbox/dist/css/glightbox.min.css')
         
@@ -29,16 +31,15 @@ export default function ClientInit() {
           autoplayVideos: true
         })
 
-        // Import Swiper for any .init-swiper elements (if not handled by component)
+        // Import Swiper
         const Swiper = (await import('swiper')).default
         const { Pagination, Autoplay, Navigation } = await import('swiper/modules')
         await import('swiper/css')
         await import('swiper/css/pagination')
         await import('swiper/css/navigation')
         
-        // Initialize Swipers that use the .init-swiper class
+        // Initialize Swipers
         document.querySelectorAll('.init-swiper:not(.swiper-initialized)').forEach((swiperElement) => {
-          // Default configuration
           const defaultConfig = {
             modules: [Pagination, Autoplay, Navigation],
             loop: true,
@@ -55,7 +56,6 @@ export default function ClientInit() {
             }
           }
 
-          // Try to get config from data attribute or script tag
           const configElement = swiperElement.querySelector('.swiper-config')
           let config = defaultConfig
 
@@ -86,20 +86,27 @@ export default function ClientInit() {
 
     initLibraries()
 
-    // Scroll top button functionality
+    // Optimized scroll top button with throttling
     const scrollTop = document.querySelector('.scroll-top')
     if (scrollTop) {
+      let ticking = false
+      
       const toggleScrollTop = () => {
-        if (window.scrollY > 100) {
-          scrollTop.classList.add('active')
-        } else {
-          scrollTop.classList.remove('active')
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            if (window.scrollY > 100) {
+              scrollTop.classList.add('active')
+            } else {
+              scrollTop.classList.remove('active')
+            }
+            ticking = false
+          })
+          ticking = true
         }
       }
 
-      window.addEventListener('load', toggleScrollTop)
-      window.addEventListener('scroll', toggleScrollTop)
-      toggleScrollTop() // Initial check
+      window.addEventListener('scroll', toggleScrollTop, { passive: true })
+      toggleScrollTop()
 
       scrollTop.addEventListener('click', (e) => {
         e.preventDefault()
@@ -110,12 +117,12 @@ export default function ClientInit() {
       })
     }
 
-    // Remove preloader
+    // Remove preloader faster
     const preloader = document.querySelector('#preloader')
     if (preloader) {
       const removePreloader = () => {
         preloader.style.opacity = '0'
-        setTimeout(() => preloader.remove(), 300)
+        setTimeout(() => preloader.remove(), 200)
       }
       
       if (document.readyState === 'complete') {
@@ -124,11 +131,11 @@ export default function ClientInit() {
         window.addEventListener('load', removePreloader)
       }
       
-      // Fallback timeout
-      setTimeout(removePreloader, 2000)
+      // Reduced fallback timeout
+      setTimeout(removePreloader, 1000)
     }
 
-    // FAQ toggle functionality
+    // FAQ toggle
     const faqItems = document.querySelectorAll('.faq-item h3, .faq-item .faq-toggle')
     faqItems.forEach((faqItem) => {
       faqItem.addEventListener('click', () => {
@@ -139,7 +146,7 @@ export default function ClientInit() {
       })
     })
 
-    // Dropdown toggle for mobile navigation
+    // Dropdown toggle
     const dropdownToggles = document.querySelectorAll('.navmenu .toggle-dropdown')
     dropdownToggles.forEach((toggle) => {
       toggle.addEventListener('click', function(e) {
@@ -157,39 +164,41 @@ export default function ClientInit() {
       })
     })
 
-    // Navmenu scrollspy (highlight active section in nav)
+    // Optimized navmenu scrollspy with throttling
     const navmenulinks = document.querySelectorAll('.navmenu a[href^="#"]')
+    let scrollTicking = false
     
     function navmenuScrollspy() {
-      const position = window.scrollY + 200
-      
-      navmenulinks.forEach(navmenulink => {
-        if (!navmenulink.hash) return
-        
-        const section = document.querySelector(navmenulink.hash)
-        if (!section) return
-        
-        const sectionTop = section.offsetTop
-        const sectionBottom = sectionTop + section.offsetHeight
-        
-        if (position >= sectionTop && position < sectionBottom) {
-          document.querySelectorAll('.navmenu a.active').forEach(link => {
-            link.classList.remove('active')
+      if (!scrollTicking) {
+        window.requestAnimationFrame(() => {
+          const position = window.scrollY + 200
+          
+          navmenulinks.forEach(navmenulink => {
+            if (!navmenulink.hash) return
+            
+            const section = document.querySelector(navmenulink.hash)
+            if (!section) return
+            
+            const sectionTop = section.offsetTop
+            const sectionBottom = sectionTop + section.offsetHeight
+            
+            if (position >= sectionTop && position < sectionBottom) {
+              document.querySelectorAll('.navmenu a.active').forEach(link => {
+                link.classList.remove('active')
+              })
+              navmenulink.classList.add('active')
+            }
           })
-          navmenulink.classList.add('active')
-        } else {
-          navmenulink.classList.remove('active')
-        }
-      })
+          scrollTicking = false
+        })
+        scrollTicking = true
+      }
     }
     
-    window.addEventListener('load', navmenuScrollspy)
-    document.addEventListener('scroll', navmenuScrollspy)
-    navmenuScrollspy() // Initial check
+    document.addEventListener('scroll', navmenuScrollspy, { passive: true })
+    navmenuScrollspy()
 
-    // Cleanup function
     return () => {
-      window.removeEventListener('scroll', () => {})
       document.removeEventListener('scroll', navmenuScrollspy)
     }
   }, [])

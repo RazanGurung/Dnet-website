@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "create-service-images": "node scripts/create-service-images.js",
+    "create-gallery-images": "node scripts/create-gallery-images.js",
+    "create-all-images": "node scripts/create-service-images.js && node scripts/create-gallery-images.js && node create-images.js"
   },
   "dependencies": {
     "next": "^14.0.4",
