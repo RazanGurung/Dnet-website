@@ -1,5 +1,3 @@
 {
-  "/page": "app/page.js",
-  "/services/managed-it-cloud/page": "app/services/managed-it-cloud/page.js",
-  "/services/web-seo-software/page": "app/services/web-seo-software/page.js"
+  "/page": "app/page.js"
 }

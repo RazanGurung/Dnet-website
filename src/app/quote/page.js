@@ -1,7 +1,7 @@
 // src/app/quote/page.js
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 
 export default function QuotePage() {
@@ -100,7 +100,6 @@ export default function QuotePage() {
   const calculateTotal = () => {
     let total = 0
 
-    // Calculate standard services
     Object.keys(quantities).forEach(key => {
       const service = services.find(s => s.id === key)
       if (service && key !== 'dynamicWebsite') {
@@ -108,7 +107,6 @@ export default function QuotePage() {
       }
     })
 
-    // Calculate dynamic website with features
     if (quantities.dynamicWebsite > 0) {
       const basePrice = services.find(s => s.id === 'dynamicWebsite').price
       const featuresTotal = dynamicFeatures.reduce((sum, featureId) => {
@@ -142,7 +140,6 @@ export default function QuotePage() {
     setIsSubmitting(true)
     setStatus({ type: '', message: '' })
 
-    // Build quote details
     const quoteItems = services
       .filter(service => quantities[service.id] > 0)
       .map(service => {
@@ -200,7 +197,6 @@ ${contactInfo.message || 'N/A'}
           type: 'success', 
           message: '✅ Quote request sent! We\'ll contact you within 24 hours with a detailed proposal.' 
         })
-        // Reset form
         setQuantities({
           cctv: 0,
           tvInstall: 0,
@@ -212,6 +208,11 @@ ${contactInfo.message || 'N/A'}
         })
         setDynamicFeatures([])
         setContactInfo({ name: '', email: '', phone: '', message: '' })
+        
+        // Scroll to status message
+        setTimeout(() => {
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+        }, 100)
       } else {
         setStatus({ 
           type: 'danger', 
@@ -262,6 +263,21 @@ ${contactInfo.message || 'N/A'}
           </div>
         </div>
       </section>
+
+      {/* Status Message */}
+      {status.message && (
+        <div className="container mt-4">
+          <div className={`alert alert-${status.type} alert-dismissible fade show`} role="alert">
+            {status.message}
+            <button 
+              type="button" 
+              className="btn-close" 
+              onClick={() => setStatus({ type: '', message: '' })}
+              aria-label="Close"
+            ></button>
+          </div>
+        </div>
+      )}
 
       {/* Quote Calculator */}
       <section className="section">
@@ -434,12 +450,6 @@ ${contactInfo.message || 'N/A'}
                           </button>
                         </div>
                       </div>
-
-                      {status.message && (
-                        <div className={`alert alert-${status.type} mt-3 mb-0`}>
-                          {status.message}
-                        </div>
-                      )}
                     </form>
                   </div>
                 </div>
@@ -510,7 +520,7 @@ ${contactInfo.message || 'N/A'}
                       <div className="alert alert-info mt-3 mb-0">
                         <small>
                           <i className="bi bi-info-circle me-2"></i>
-                          This is an estimate. Final pricing may vary based on site conditions and specific requirements.
+                          This is an estimate. Final pricing may vary based on site conditions.
                         </small>
                       </div>
                     </>

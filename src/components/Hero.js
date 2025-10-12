@@ -1,3 +1,4 @@
+// src/components/Hero.js
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -29,9 +30,13 @@ export default function Hero() {
             Structured. Secured. Seamless. Professional IT infrastructure designed to scale with your success.
           </p>
           <div className="d-flex flex-column flex-sm-row gap-3 justify-content-center justify-content-lg-start">
-            <Link href="#contact" className="btn btn-light btn-lg px-4">
+            <Link href="/quote" className="btn btn-light btn-lg px-4">
+              <i className="bi bi-calculator me-2"></i>
+              Get Instant Quote
+            </Link>
+            <Link href="#contact" className="btn btn-outline-light btn-lg px-4">
               <i className="bi bi-chat-dots me-2"></i>
-              Get Free Quote
+              Free Consultation
             </Link>
             <Link href="#services" className="btn btn-outline-light btn-lg px-4">
               <i className="bi bi-arrow-right me-2"></i>
@@ -117,6 +122,5 @@ export default function Hero() {
         </div>
       </div>
     </section>
-    // Add this component after Hero
   )
 }

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -13,6 +13,30 @@ export default function Contact() {
 
   const [status, setStatus] = useState({ type: '', message: '' })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [mapLoaded, setMapLoaded] = useState(false)
+  const mapRef = useRef(null)
+
+  // Lazy load map when it comes into view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !mapLoaded) {
+          setMapLoaded(true)
+        }
+      },
+      { rootMargin: '50px' }
+    )
+
+    if (mapRef.current) {
+      observer.observe(mapRef.current)
+    }
+
+    return () => {
+      if (mapRef.current) {
+        observer.unobserve(mapRef.current)
+      }
+    }
+  }, [mapLoaded])
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target
@@ -92,14 +116,40 @@ export default function Contact() {
 
       {/* Lazy-loaded Google Maps */}
       <div className="mb-5" data-aos="fade-up" data-aos-delay="100">
-        <iframe 
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d103284.42852800095!2d-80.06669938857394!3d36.00470119641944!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88530bc771b841eb%3A0xf2ee8a2d049910df!2sHigh%20Point%2C%20NC!5e0!3m2!1sen!2sus!4v1747770831534!5m2!1sen!2sus"
-          style={{ border: 0, width: '100%', height: '270px' }}
-          allowFullScreen=""
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          title="DNET Location Map"
-        ></iframe>
+        <div 
+          ref={mapRef}
+          style={{ 
+            width: '100%', 
+            height: '270px',
+            background: '#e9ecef',
+            position: 'relative'
+          }}
+        >
+          {!mapLoaded ? (
+            // Placeholder while map loads
+            <div style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              textAlign: 'center'
+            }}>
+              <div className="spinner-border text-primary" role="status">
+                <span className="visually-hidden">Loading map...</span>
+              </div>
+              <p className="mt-2 text-muted small">Loading map...</p>
+            </div>
+          ) : (
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d103284.42852800095!2d-80.06669938857394!3d36.00470119641944!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88530bc771b841eb%3A0xf2ee8a2d049910df!2sHigh%20Point%2C%20NC!5e0!3m2!1sen!2sus!4v1747770831534!5m2!1sen!2sus"
+              style={{ border: 0, width: '100%', height: '100%' }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="DNET Location Map"
+            ></iframe>
+          )}
+        </div>
       </div>
 
       <div className="container" data-aos="fade-up" data-aos-delay="100">

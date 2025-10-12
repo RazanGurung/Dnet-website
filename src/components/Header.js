@@ -1,3 +1,4 @@
+// src/components/Header.js
 'use client'
 
 import { useState, useEffect } from 'react'
@@ -36,7 +37,7 @@ export default function Header() {
     }
 
     window.addEventListener('scroll', handleScroll)
-    handleScroll() // Check on mount
+    handleScroll()
     
     return () => window.removeEventListener('scroll', handleScroll)
   }, [pathname])
@@ -51,12 +52,10 @@ export default function Header() {
     document.body.style.overflow = ''
   }
 
-  // Check if we're on a service page
   const isServicesActive = () => {
     return pathname.startsWith('/services')
   }
 
-  // Check if a section link should be active (only on home page)
   const isSectionActive = (section) => {
     return pathname === '/' && activeSection === section
   }
@@ -127,17 +126,8 @@ export default function Header() {
                   Services
                 </Link>
               </li>
-              <li>
-                <Link 
-                  href="/#departments" 
-                  className={isSectionActive('departments') ? 'active' : ''} 
-                  onClick={closeMobileNav}
-                >
-                  Departments
-                </Link>
-              </li>
               
-              {/* Services Dropdown - Highlight when on any service page */}
+              {/* Services Dropdown */}
               <li className={`dropdown ${isServicesActive() ? 'active' : ''}`}>
                 <a href="#" className={`d-flex align-items-center ${isServicesActive() ? 'active' : ''}`}>
                   <span>Our Services</span> 
@@ -208,6 +198,18 @@ export default function Header() {
                     </Link>
                   </li>
                 </ul>
+              </li>
+
+              <li>
+                <Link 
+                  href="/quote" 
+                  className={pathname === '/quote' ? 'active btn btn-primary text-white px-3 py-2' : 'btn btn-primary text-white px-3 py-2'} 
+                  onClick={closeMobileNav}
+                  style={{ borderRadius: '50px', fontWeight: '600' }}
+                >
+                  <i className="bi bi-calculator me-1"></i>
+                  Get Quote
+                </Link>
               </li>
 
               <li>
