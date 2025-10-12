@@ -11,40 +11,15 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/services/networking-cabling/page": [
+    "/services/managed-it-cloud/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/services/networking-cabling/page.js"
-    ],
-    "/services/switching-routing-wifi/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/services/switching-routing-wifi/page.js"
-    ],
-    "/services/security-access/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/services/security-access/page.js"
-    ],
-    "/services/office-relocation/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/services/office-relocation/page.js"
-    ],
-    "/services/data-recovery/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/services/data-recovery/page.js"
+      "static/chunks/app/services/managed-it-cloud/page.js"
     ],
     "/services/web-seo-software/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/services/web-seo-software/page.js"
-    ],
-    "/services/managed-it-cloud/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/services/managed-it-cloud/page.js"
     ]
   }
 }

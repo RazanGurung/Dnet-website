@@ -1,7 +1,5 @@
 {
   "/page": "app/page.js",
-  "/services/security-access/page": "app/services/security-access/page.js",
-  "/services/data-recovery/page": "app/services/data-recovery/page.js",
-  "/services/web-seo-software/page": "app/services/web-seo-software/page.js",
-  "/services/managed-it-cloud/page": "app/services/managed-it-cloud/page.js"
+  "/services/managed-it-cloud/page": "app/services/managed-it-cloud/page.js",
+  "/services/web-seo-software/page": "app/services/web-seo-software/page.js"
 }
