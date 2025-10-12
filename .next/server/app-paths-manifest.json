@@ -1,4 +1,7 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/page": "app/page.js"
+  "/page": "app/page.js",
+  "/services/networking-cabling/page": "app/services/networking-cabling/page.js",
+  "/services/switching-routing-wifi/page": "app/services/switching-routing-wifi/page.js",
+  "/services/security-access/page": "app/services/security-access/page.js",
+  "/services/data-recovery/page": "app/services/data-recovery/page.js"
 }

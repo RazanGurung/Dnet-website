@@ -1098,22 +1098,25 @@ img {
 }
 
 .footer .social-links a {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--gray-700);
+  border: 2px solid rgba(255, 255, 255, 0.3);  /* ← Much more visible */
   border-radius: 50%;
   transition: all var(--transition-base);
-  color: var(--gray-400);
+  color: rgba(255, 255, 255, 0.85);  /* ← Bright white, clearly visible */
+  background: rgb(249, 252, 255);  /* ← Subtle background */
+  font-size: 1.125rem;
 }
 
 .footer .social-links a:hover {
-  background: var(--primary-color);
+  background: rgb(249, 252, 255);
   border-color: var(--primary-color);
-  color: var(--white);
-  transform: translateY(-3px);
+  color: rgb(249, 252, 255);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 4px 12px rgba(248, 249, 250, 0.4);
 }
 
 .footer-contact {
@@ -1687,5 +1690,129 @@ img {
 @media print {
   .gallery-overlay {
     display: none;
+  }
+}
+
+/* ===================================
+   SERVICE PAGES STYLES
+   Add this to the end of globals.css
+   =================================== */
+
+.service-hero {
+  position: relative;
+  color: var(--white);
+}
+
+.service-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0, 102, 204, 0.95), rgba(0, 77, 153, 0.95));
+  z-index: 1;
+}
+
+.service-hero .breadcrumb {
+  background: transparent;
+  margin: 0;
+  padding: 0;
+}
+
+.service-hero .breadcrumb-item + .breadcrumb-item::before {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.service-overview {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.service-overview p:last-child {
+  margin-bottom: 0;
+}
+
+/* Service Cards Hover Effect */
+.hover-lift {
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.hover-lift:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl) !important;
+}
+
+/* Service Page Cards */
+.service-detail-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  height: 100%;
+  transition: all var(--transition-base);
+  border: 2px solid var(--gray-200);
+}
+
+.service-detail-card:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Process Steps */
+.process-step {
+  position: relative;
+}
+
+.process-step::after {
+  content: '';
+  position: absolute;
+  top: 40px;
+  right: -50%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary-color) 0%, transparent 100%);
+}
+
+.process-step:last-child::after {
+  display: none;
+}
+
+@media (max-width: 991px) {
+  .process-step::after {
+    display: none;
+  }
+}
+
+/* Technology Badges */
+.tech-badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: var(--gray-100);
+  border-radius: var(--radius-full);
+  margin: 0.25rem;
+  transition: all var(--transition-base);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.tech-badge:hover {
+  background: var(--primary-light);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+/* Service Page Responsive */
+@media (max-width: 768px) {
+  .service-hero {
+    min-height: 40vh !important;
+    padding: 2rem 0 !important;
+  }
+  
+  .service-hero h1 {
+    font-size: 1.75rem;
+  }
+  
+  .service-overview {
+    padding: 1.5rem;
   }
 }
