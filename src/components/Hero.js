@@ -117,5 +117,6 @@ export default function Hero() {
         </div>
       </div>
     </section>
+    // Add this component after Hero
   )
 }
