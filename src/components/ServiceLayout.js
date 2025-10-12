@@ -232,7 +232,7 @@ export default function ServiceLayout({
               }}>
                 <div className="text-center text-white">
                   <h2 className="text-white mb-3">{cta?.title || 'Ready to Get Started?'}</h2>
-                  <p className="lead mb-4 opacity-90">
+                  <p className="lead mb-4 text-white style={{ opacity: 0.95 }">
                     {cta?.description || 'Contact us today for a free consultation and quote.'}
                   </p>
                   <div className="d-flex gap-3 justify-content-center flex-wrap">

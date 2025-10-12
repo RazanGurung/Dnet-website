@@ -4816,3 +4816,60 @@ img {
     padding: 1.5rem;
   }
 }
+
+/* Enhanced Active State for Navigation */
+.navmenu a.active {
+  color: var(--primary-color) !important;
+  background-color: var(--primary-lighter);
+  position: relative;
+}
+
+.navmenu a.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 3px;
+  background: var(--primary-color);
+  border-radius: 2px;
+}
+
+/* Active dropdown indicator */
+.navmenu .dropdown.active > a {
+  color: var(--primary-color) !important;
+  background-color: var(--primary-lighter);
+}
+
+/* Active state for dropdown items */
+.navmenu .dropdown ul a.active {
+  color: var(--primary-color) !important;
+  background-color: var(--primary-lighter);
+  font-weight: 600;
+}
+
+.navmenu .dropdown ul a.active::before {
+  content: '▸';
+  position: absolute;
+  left: 0.5rem;
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+/* Mobile active states */
+@media (max-width: 1199px) {
+  .navmenu a.active {
+    border-left: 4px solid var(--primary-color);
+    padding-left: calc(1rem - 4px);
+  }
+  
+  .navmenu a.active::after {
+    display: none;
+  }
+  
+  .navmenu .dropdown ul a.active {
+    border-left: 4px solid var(--primary-color);
+    padding-left: calc(1rem - 4px);
+  }
+}

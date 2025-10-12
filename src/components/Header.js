@@ -1,21 +1,45 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 
 export default function Header() {
   const [isMobileNavActive, setIsMobileNavActive] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [activeSection, setActiveSection] = useState('')
+  const pathname = usePathname()
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 100)
+      
+      // Only track sections if on home page
+      if (pathname === '/') {
+        const sections = ['hero', 'about', 'services', 'departments', 'contact']
+        const scrollPosition = window.scrollY + 200
+        
+        for (const section of sections) {
+          const element = document.getElementById(section)
+          if (element) {
+            const offsetTop = element.offsetTop
+            const offsetBottom = offsetTop + element.offsetHeight
+            
+            if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
+              setActiveSection(section)
+              break
+            }
+          }
+        }
+      }
     }
 
     window.addEventListener('scroll', handleScroll)
+    handleScroll() // Check on mount
+    
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [pathname])
 
   const toggleMobileNav = () => {
     setIsMobileNavActive(!isMobileNavActive)
@@ -25,6 +49,16 @@ export default function Header() {
   const closeMobileNav = () => {
     setIsMobileNavActive(false)
     document.body.style.overflow = ''
+  }
+
+  // Check if we're on a service page
+  const isServicesActive = () => {
+    return pathname.startsWith('/services')
+  }
+
+  // Check if a section link should be active (only on home page)
+  const isSectionActive = (section) => {
+    return pathname === '/' && activeSection === section
   }
 
   return (
@@ -66,57 +100,125 @@ export default function Header() {
           {/* Navigation */}
           <nav id="navmenu" className={`navmenu ${isMobileNavActive ? 'mobile-nav-active' : ''}`}>
             <ul>
-              <li><Link href="/#hero" onClick={closeMobileNav}>Home</Link></li>
-              <li><Link href="/#about" onClick={closeMobileNav}>About</Link></li>
-              <li><Link href="/#services" onClick={closeMobileNav}>Services</Link></li>
-              <li><Link href="/#departments" onClick={closeMobileNav}>Departments</Link></li>
+              <li>
+                <Link 
+                  href="/" 
+                  className={pathname === '/' && activeSection === 'hero' ? 'active' : ''} 
+                  onClick={closeMobileNav}
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  href="/#about" 
+                  className={isSectionActive('about') ? 'active' : ''} 
+                  onClick={closeMobileNav}
+                >
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  href="/#services" 
+                  className={isSectionActive('services') ? 'active' : ''} 
+                  onClick={closeMobileNav}
+                >
+                  Services
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  href="/#departments" 
+                  className={isSectionActive('departments') ? 'active' : ''} 
+                  onClick={closeMobileNav}
+                >
+                  Departments
+                </Link>
+              </li>
               
-              {/* Services Dropdown */}
-              <li className="dropdown">
-                <a href="#" className="d-flex align-items-center">
+              {/* Services Dropdown - Highlight when on any service page */}
+              <li className={`dropdown ${isServicesActive() ? 'active' : ''}`}>
+                <a href="#" className={`d-flex align-items-center ${isServicesActive() ? 'active' : ''}`}>
                   <span>Our Services</span> 
                   <i className="bi bi-chevron-down toggle-dropdown ms-1"></i>
                 </a>
                 <ul>
                   <li>
-                    <Link href="/services/networking-cabling" onClick={closeMobileNav}>
+                    <Link 
+                      href="/services/networking-cabling" 
+                      className={pathname === '/services/networking-cabling' ? 'active' : ''}
+                      onClick={closeMobileNav}
+                    >
                       Networking &amp; Cabling
                     </Link>
                   </li>
                   <li>
-                    <Link href="/services/switching-routing-wifi" onClick={closeMobileNav}>
+                    <Link 
+                      href="/services/switching-routing-wifi" 
+                      className={pathname === '/services/switching-routing-wifi' ? 'active' : ''}
+                      onClick={closeMobileNav}
+                    >
                       Switching, Routing &amp; Wi-Fi
                     </Link>
                   </li>
                   <li>
-                    <Link href="/services/security-access" onClick={closeMobileNav}>
+                    <Link 
+                      href="/services/security-access" 
+                      className={pathname === '/services/security-access' ? 'active' : ''}
+                      onClick={closeMobileNav}
+                    >
                       Security, CCTV &amp; Access
                     </Link>
                   </li>
                   <li>
-                    <Link href="/services/office-relocation" onClick={closeMobileNav}>
+                    <Link 
+                      href="/services/office-relocation" 
+                      className={pathname === '/services/office-relocation' ? 'active' : ''}
+                      onClick={closeMobileNav}
+                    >
                       Office Relocation &amp; New Sites
                     </Link>
                   </li>
                   <li>
-                    <Link href="/services/data-recovery" onClick={closeMobileNav}>
+                    <Link 
+                      href="/services/data-recovery" 
+                      className={pathname === '/services/data-recovery' ? 'active' : ''}
+                      onClick={closeMobileNav}
+                    >
                       Backup, Recovery &amp; Data
                     </Link>
                   </li>
                   <li>
-                    <Link href="/services/web-seo-software" onClick={closeMobileNav}>
+                    <Link 
+                      href="/services/web-seo-software" 
+                      className={pathname === '/services/web-seo-software' ? 'active' : ''}
+                      onClick={closeMobileNav}
+                    >
                       Web, SEO &amp; Custom Software
                     </Link>
                   </li>
                   <li>
-                    <Link href="/services/managed-it-cloud" onClick={closeMobileNav}>
+                    <Link 
+                      href="/services/managed-it-cloud" 
+                      className={pathname === '/services/managed-it-cloud' ? 'active' : ''}
+                      onClick={closeMobileNav}
+                    >
                       Managed IT &amp; Cloud
                     </Link>
                   </li>
                 </ul>
               </li>
 
-              <li><Link href="/#contact" onClick={closeMobileNav}>Contact</Link></li>
+              <li>
+                <Link 
+                  href="/#contact" 
+                  className={isSectionActive('contact') ? 'active' : ''} 
+                  onClick={closeMobileNav}
+                >
+                  Contact
+                </Link>
+              </li>
             </ul>
           </nav>
 

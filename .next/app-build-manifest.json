@@ -35,6 +35,16 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/services/data-recovery/page.js"
+    ],
+    "/services/web-seo-software/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/services/web-seo-software/page.js"
+    ],
+    "/services/managed-it-cloud/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/services/managed-it-cloud/page.js"
     ]
   }
 }
