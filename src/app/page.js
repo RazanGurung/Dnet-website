@@ -7,17 +7,28 @@ import Testimonials from '@/components/Testimonials'
 import Gallery from '@/components/Gallery'
 import Contact from '@/components/Contact'
 
+import HeroMinimal from '@/components/Herominimal'
+import ServicesMinimal from '@/components/Servicesminimal' 
+import WhyChooseUs from '@/components/Whychooseus'
+import GetStarted from '@/components/Getstarted'
+
 export default function Home() {
   return (
+    // <>
+    //   <Hero />
+    //   <About />
+    //   <Services />
+    //   <Departments />
+    //   <FAQ />
+    //   <Testimonials />
+    //   <Gallery />
+    //   <Contact />
+    // </>
     <>
-      <Hero />
-      <About />
-      <Services />
-      <Departments />
-      <FAQ />
-      <Testimonials />
-      <Gallery />
-      <Contact />
+      <HeroMinimal />
+      <ServicesMinimal />
+      <WhyChooseUs />
+      <GetStarted />
     </>
   )
 }

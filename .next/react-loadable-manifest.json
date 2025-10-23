@@ -58,6 +58,18 @@
       "static/chunks/_app-pages-browser_node_modules_swiper_modules_index_mjs.js"
     ]
   },
+  "components\\Gallery.js -> swiper": {
+    "id": "components\\Gallery.js -> swiper",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_swiper_swiper_mjs.js"
+    ]
+  },
+  "components\\Gallery.js -> swiper/modules": {
+    "id": "components\\Gallery.js -> swiper/modules",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_swiper_modules_index_mjs.js"
+    ]
+  },
   "components\\Testimonials.js -> swiper": {
     "id": "components\\Testimonials.js -> swiper",
     "files": [

@@ -1,3 +1,6 @@
 {
-  "/page": "app/page.js"
+  "/page": "app/page.js",
+  "/services/networking-cabling/page": "app/services/networking-cabling/page.js",
+  "/services/switching-routing-wifi/page": "app/services/switching-routing-wifi/page.js",
+  "/services/security-access/page": "app/services/security-access/page.js"
 }
