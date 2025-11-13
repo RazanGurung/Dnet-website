@@ -262,6 +262,15 @@ img {
   padding: 1rem 0;
 }
 
+.branding > .container {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-wrap: nowrap !important;
+  gap: 1rem !important;
+  min-height: 50px;
+}
+
 .logo {
   display: flex;
   align-items: center;
@@ -270,6 +279,7 @@ img {
   color: var(--dark-color);
   font-family: var(--font-heading);
   transition: color var(--transition-base);
+  flex-shrink: 0;
 }
 
 .logo:hover {
@@ -363,6 +373,16 @@ img {
   border: none;
   background: none;
   padding: 0.5rem;
+  position: relative;
+  z-index: 9999;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+/* Navmenu on desktop */
+.navmenu {
+  display: flex;
+  align-items: center;
 }
 
 @media (max-width: 1199px) {
@@ -370,15 +390,23 @@ img {
     font-size: 0.75rem;
     gap: 1rem;
   }
-  
+
   .topbar .social-links {
     display: none;
   }
 
+  /* Show hamburger button */
   .mobile-nav-toggle {
     display: block;
   }
 
+  /* Make logo smaller on mobile to prevent wrapping */
+  .branding .logo img {
+    max-width: 120px;
+    height: auto;
+  }
+
+  /* Mobile navigation as overlay */
   .navmenu {
     position: fixed;
     inset: 0;
@@ -386,6 +414,7 @@ img {
     z-index: 9999;
     transform: translateX(100%);
     transition: transform var(--transition-base);
+    display: block;
   }
 
   .navmenu.mobile-nav-active {
@@ -430,6 +459,28 @@ img {
     top: 1rem;
     right: 1rem;
     z-index: 10000;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 576px) {
+  .branding {
+    padding: 0.75rem 0;
+  }
+
+  .branding > .container {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+
+  .branding .logo img {
+    max-width: 100px;
+    height: auto;
+  }
+
+  .mobile-nav-toggle {
+    font-size: 1.75rem;
+    padding: 0.25rem;
   }
 }
 
@@ -507,7 +558,7 @@ img {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(0, 102, 204, 0.3), rgba(0, 77, 153, 0.25));
+  background: linear-gradient(135deg, rgba(0, 102, 204, 0.6), rgba(0, 77, 153, 0.55));
   z-index: 1;
   pointer-events: none;
 }

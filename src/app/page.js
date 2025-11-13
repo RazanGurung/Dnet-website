@@ -1,7 +1,6 @@
 import Hero from '@/components/Hero'
 import Services from '@/components/Services'
 import WhyChooseUs from '@/components/Whychooseus'
-import Testimonials from '@/components/Testimonials'
 import Contact from '@/components/Contact'
 
 export default function Home() {
@@ -15,9 +14,6 @@ export default function Home() {
 
       {/* Services Section - Overview with links to detail pages */}
       <Services />
-
-      {/* Testimonials Section - Client reviews */}
-      <Testimonials />
 
       {/* Contact Section - Lead capture form */}
       <Contact />

@@ -106,13 +106,14 @@ export default function Header() {
       <div className="branding d-flex align-items-center">
         <div className="container position-relative d-flex align-items-center justify-content-between">
           {/* Logo */}
-          <Link href="/" className="logo d-flex align-items-center me-auto" onClick={closeMobileNav}>
-            <Image 
-              src="/assets/img/logo.png" 
-              alt="DNET logo" 
-              width={150} 
+          <Link href="/" className="logo d-flex align-items-center" onClick={closeMobileNav}>
+            <Image
+              src="/assets/img/logo.png"
+              alt="DNET logo"
+              width={150}
               height={40}
               priority
+              style={{ width: 'auto', height: 'auto', maxWidth: '150px', maxHeight: '40px' }}
             />
           </Link>
 

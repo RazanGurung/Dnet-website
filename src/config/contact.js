@@ -14,8 +14,8 @@ export const CONTACT_INFO = {
   },
 
   email: {
-    primary: 'Dnetworkingtechnology@gmail.com',
-    support: 'Dnetworkingtechnology@gmail.com'
+    primary: 'dnetworkingtech@gmail.com',
+    support: 'dnetworkingtech@gmail.com'
   },
 
   // Address
