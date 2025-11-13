@@ -2,10 +2,10 @@ import Image from 'next/image'
 
 export default function Departments() {
   return (
-    <section id="departments" className="departments section">
+    <section id="team" className="departments section">
       {/* Section Title */}
       <div className="container section-title" data-aos="fade-up">
-        <h2>Lead Technician Profile</h2>
+        <h2>Meet Our Founder</h2>
         <p>Tilak, a master in networking with 10+ years of experience, delivers expert IT, cabling, and CCTV solutions for homes, offices, and industries</p>
       </div>
 
@@ -15,10 +15,10 @@ export default function Departments() {
           <div className="col-lg-3">
             <ul className="nav nav-tabs flex-column">
               <li className="nav-item">
-                <a 
-                  className="nav-link active show" 
-                  data-bs-toggle="tab" 
-                  href="#departments-tab-1"
+                <a
+                  className="nav-link active show"
+                  data-bs-toggle="tab"
+                  href="#team-tab-1"
                 >
                   Meet Tilak
                 </a>
@@ -29,7 +29,7 @@ export default function Departments() {
           {/* Right: Tab Content */}
           <div className="col-lg-9 mt-4 mt-lg-0">
             <div className="tab-content">
-              <div className="tab-pane active show" id="departments-tab-1">
+              <div className="tab-pane active show" id="team-tab-1">
                 <div className="row">
                   <div className="col-lg-8 details order-2 order-lg-1">
                     <h3>Lead Network Technician & Founder</h3>
@@ -45,12 +45,14 @@ export default function Departments() {
                   </div>
                   
                   <div className="col-lg-4 text-center order-1 order-lg-2">
-                    <Image 
-                      src="/assets/img/departments-1.jpg" 
-                      alt="Tilak - Lead Network Technician" 
+                    <Image
+                      src="/assets/img/departments-1.jpg"
+                      alt="Tilak - Lead Network Technician"
                       width={400}
                       height={500}
                       className="img-fluid"
+                      loading="lazy"
+                      quality={75}
                     />
                   </div>
                 </div>

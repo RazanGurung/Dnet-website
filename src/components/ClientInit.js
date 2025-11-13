@@ -6,18 +6,22 @@ export default function ClientInit() {
   useEffect(() => {
     const initLibraries = async () => {
       try {
-        // Import and initialize AOS with optimized settings
+        // Defer library loading until after initial render
+        await new Promise(resolve => setTimeout(resolve, 100))
+
+        // Import and initialize AOS with minimal settings for better performance
         const AOS = (await import('aos')).default
         await import('aos/dist/aos.css')
-        
+
+        // Disable AOS animations for smoother scrolling
         AOS.init({
-          duration: 400,           // Reduced from 600ms
-          easing: 'ease-out',      // Faster easing
-          once: true,              // Animate only once
+          duration: 0,             // No animation duration - instant
+          easing: 'ease',
+          once: true,
           mirror: false,
-          offset: 50,              // Reduced from 100
-          delay: 0,                // No delay
-          disable: 'mobile'        // Disable on mobile for better performance
+          offset: 0,
+          delay: 0,
+          disable: true            // Disable all animations
         })
 
         // Import GLightbox
@@ -115,24 +119,6 @@ export default function ClientInit() {
           behavior: 'smooth'
         })
       })
-    }
-
-    // Remove preloader faster
-    const preloader = document.querySelector('#preloader')
-    if (preloader) {
-      const removePreloader = () => {
-        preloader.style.opacity = '0'
-        setTimeout(() => preloader.remove(), 200)
-      }
-      
-      if (document.readyState === 'complete') {
-        removePreloader()
-      } else {
-        window.addEventListener('load', removePreloader)
-      }
-      
-      // Reduced fallback timeout
-      setTimeout(removePreloader, 1000)
     }
 
     // FAQ toggle

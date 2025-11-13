@@ -1,6 +1,7 @@
 {
   "/page": "app/page.js",
-  "/services/networking-cabling/page": "app/services/networking-cabling/page.js",
-  "/services/switching-routing-wifi/page": "app/services/switching-routing-wifi/page.js",
-  "/services/security-access/page": "app/services/security-access/page.js"
+  "/quote/page": "app/quote/page.js",
+  "/about/page": "app/about/page.js",
+  "/portfolio/page": "app/portfolio/page.js",
+  "/faq/page": "app/faq/page.js"
 }

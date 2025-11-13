@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
+import { CONTACT_INFO } from '@/config/contact'
 
 export default function Header() {
   const [isMobileNavActive, setIsMobileNavActive] = useState(false)
@@ -12,13 +13,16 @@ export default function Header() {
   const [activeSection, setActiveSection] = useState('')
   const pathname = usePathname()
 
+  // Remove trailing slash for consistent pathname matching
+  const cleanPath = pathname.endsWith('/') && pathname !== '/' ? pathname.slice(0, -1) : pathname
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 100)
       
       // Only track sections if on home page
       if (pathname === '/') {
-        const sections = ['hero', 'about', 'services', 'departments', 'contact']
+        const sections = ['hero', 'services', 'why-choose-us', 'testimonials', 'contact']
         const scrollPosition = window.scrollY + 200
         
         for (const section of sections) {
@@ -53,11 +57,11 @@ export default function Header() {
   }
 
   const isServicesActive = () => {
-    return pathname.startsWith('/services')
+    return cleanPath.startsWith('/services')
   }
 
   const isSectionActive = (section) => {
-    return pathname === '/' && activeSection === section
+    return cleanPath === '/' && activeSection === section
   }
 
   return (
@@ -67,17 +71,33 @@ export default function Header() {
         <div className="container d-flex justify-content-center justify-content-md-between">
           <div className="contact-info d-flex align-items-center">
             <i className="bi bi-envelope d-flex align-items-center">
-              <a href="mailto:Dnetworkingtechnology@gmail.com">Dnetworkingtechnology@gmail.com</a>
+              <a href={`mailto:${CONTACT_INFO.email.primary}`}>{CONTACT_INFO.email.primary}</a>
             </i>
             <i className="bi bi-phone d-flex align-items-center ms-4">
-              <a href="tel:+15157716993"><span>+1 515 771 6993</span></a>
+              <a href={CONTACT_INFO.phone.link}><span>{CONTACT_INFO.phone.display}</span></a>
             </i>
           </div>
           <div className="social-links d-none d-md-flex align-items-center">
-            <a href="#" className="twitter" aria-label="Twitter"><i className="bi bi-twitter-x"></i></a>
-            <a href="#" className="facebook" aria-label="Facebook"><i className="bi bi-facebook"></i></a>
-            <a href="#" className="instagram" aria-label="Instagram"><i className="bi bi-instagram"></i></a>
-            <a href="#" className="linkedin" aria-label="LinkedIn"><i className="bi bi-linkedin"></i></a>
+            {CONTACT_INFO.social.twitter && (
+              <a href={CONTACT_INFO.social.twitter} className="twitter" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
+                <i className="bi bi-twitter-x"></i>
+              </a>
+            )}
+            {CONTACT_INFO.social.facebook && (
+              <a href={CONTACT_INFO.social.facebook} className="facebook" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                <i className="bi bi-facebook"></i>
+              </a>
+            )}
+            {CONTACT_INFO.social.instagram && (
+              <a href={CONTACT_INFO.social.instagram} className="instagram" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                <i className="bi bi-instagram"></i>
+              </a>
+            )}
+            {CONTACT_INFO.social.linkedin && (
+              <a href={CONTACT_INFO.social.linkedin} className="linkedin" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+                <i className="bi bi-linkedin"></i>
+              </a>
+            )}
           </div>
         </div>
       </div>
@@ -100,98 +120,93 @@ export default function Header() {
           <nav id="navmenu" className={`navmenu ${isMobileNavActive ? 'mobile-nav-active' : ''}`}>
             <ul>
               <li>
-                <Link 
-                  href="/" 
-                  className={pathname === '/' && activeSection === 'hero' ? 'active' : ''} 
+                <Link
+                  href="/"
+                  className={cleanPath === '/' && (activeSection === 'hero' || activeSection === '') ? 'active' : ''}
                   onClick={closeMobileNav}
                 >
                   Home
                 </Link>
               </li>
               <li>
-                <Link 
-                  href="/#about" 
-                  className={isSectionActive('about') ? 'active' : ''} 
+                <Link
+                  href="/about"
+                  className={cleanPath === '/about' ? 'active' : ''}
                   onClick={closeMobileNav}
                 >
                   About
                 </Link>
               </li>
               <li>
-                <Link 
-                  href="/#services" 
-                  className={isSectionActive('services') ? 'active' : ''} 
+                <Link
+                  href="/portfolio"
+                  className={cleanPath === '/portfolio' ? 'active' : ''}
                   onClick={closeMobileNav}
                 >
-                  Services
+                  Portfolio
                 </Link>
               </li>
-              
+
               {/* Services Dropdown */}
-              <li className={`dropdown ${isServicesActive() ? 'active' : ''}`}>
-                <a href="#" className={`d-flex align-items-center ${isServicesActive() ? 'active' : ''}`}>
-                  <span>Our Services</span> 
+              <li className={`dropdown ${isServicesActive() || isSectionActive('services') ? 'active' : ''}`}>
+                <Link
+                  href="/#services"
+                  className={`d-flex align-items-center ${isServicesActive() || isSectionActive('services') ? 'active' : ''}`}
+                  onClick={closeMobileNav}
+                >
+                  <span>Our Services</span>
                   <i className="bi bi-chevron-down toggle-dropdown ms-1"></i>
-                </a>
+                </Link>
                 <ul>
                   <li>
-                    <Link 
-                      href="/services/networking-cabling" 
-                      className={pathname === '/services/networking-cabling' ? 'active' : ''}
+                    <Link
+                      href="/services/networking-cabling"
+                      className={cleanPath === '/services/networking-cabling' ? 'active' : ''}
                       onClick={closeMobileNav}
                     >
                       Networking &amp; Cabling
                     </Link>
                   </li>
                   <li>
-                    <Link 
-                      href="/services/switching-routing-wifi" 
-                      className={pathname === '/services/switching-routing-wifi' ? 'active' : ''}
+                    <Link
+                      href="/services/switching-routing-wifi"
+                      className={cleanPath === '/services/switching-routing-wifi' ? 'active' : ''}
                       onClick={closeMobileNav}
                     >
                       Switching, Routing &amp; Wi-Fi
                     </Link>
                   </li>
                   <li>
-                    <Link 
-                      href="/services/security-access" 
-                      className={pathname === '/services/security-access' ? 'active' : ''}
+                    <Link
+                      href="/services/security-access"
+                      className={cleanPath === '/services/security-access' ? 'active' : ''}
                       onClick={closeMobileNav}
                     >
                       Security, CCTV &amp; Access
                     </Link>
                   </li>
                   <li>
-                    <Link 
-                      href="/services/office-relocation" 
-                      className={pathname === '/services/office-relocation' ? 'active' : ''}
-                      onClick={closeMobileNav}
-                    >
-                      Office Relocation &amp; New Sites
-                    </Link>
-                  </li>
-                  <li>
-                    <Link 
-                      href="/services/data-recovery" 
-                      className={pathname === '/services/data-recovery' ? 'active' : ''}
+                    <Link
+                      href="/services/data-recovery"
+                      className={cleanPath === '/services/data-recovery' ? 'active' : ''}
                       onClick={closeMobileNav}
                     >
                       Backup, Recovery &amp; Data
                     </Link>
                   </li>
                   <li>
-                    <Link 
-                      href="/services/web-seo-software" 
-                      className={pathname === '/services/web-seo-software' ? 'active' : ''}
+                    <Link
+                      href="/services/web-seo-software"
+                      className={cleanPath === '/services/web-seo-software' ? 'active' : ''}
                       onClick={closeMobileNav}
                     >
                       Web, SEO &amp; Custom Software
                     </Link>
                   </li>
                   <li>
-                    <Link 
-                      href="/services/managed-it-cloud" 
-                      className={pathname === '/services/managed-it-cloud' ? 'active' : ''}
+                    <Link
+                      href="/services/managed-it-cloud"
+                      className={cleanPath === '/services/managed-it-cloud' ? 'active' : ''}
                       onClick={closeMobileNav}
                     >
                       Managed IT &amp; Cloud
@@ -201,11 +216,20 @@ export default function Header() {
               </li>
 
               <li>
-                <Link 
-                  href="/quote" 
-                  className={pathname === '/quote' ? 'active btn btn-primary text-white px-3 py-2' : 'btn btn-primary text-white px-3 py-2'} 
+                <Link
+                  href="/faq"
+                  className={cleanPath === '/faq' ? 'active' : ''}
                   onClick={closeMobileNav}
-                  style={{ borderRadius: '50px', fontWeight: '600' }}
+                >
+                  FAQ
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  href="/quote"
+                  className={cleanPath === '/quote' ? 'active btn btn-primary text-white px-3 py-2 btn-pill fw-semibold' : 'btn btn-primary text-white px-3 py-2 btn-pill fw-semibold'}
+                  onClick={closeMobileNav}
                 >
                   <i className="bi bi-calculator me-1"></i>
                   Get Quote
@@ -213,9 +237,9 @@ export default function Header() {
               </li>
 
               <li>
-                <Link 
-                  href="/#contact" 
-                  className={isSectionActive('contact') ? 'active' : ''} 
+                <Link
+                  href="/#contact"
+                  className={isSectionActive('contact') ? 'active' : ''}
                   onClick={closeMobileNav}
                 >
                   Contact

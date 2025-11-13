@@ -11,6 +11,7 @@ export default function WebSEOSoftwarePage() {
     title: 'Web, SEO & Custom Software',
     subtitle: 'Modern websites and custom applications that drive business results',
     icon: 'bi bi-code-slash',
+    heroImage: '/assets/img/carosel/seo_software.jpg',
     
     overview: (
       <div>

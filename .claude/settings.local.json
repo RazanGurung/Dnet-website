@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run dev:*)",
+      "Bash(dir node_modules)",
+      "Bash(echo:*)",
+      "Bash(\"C:\\Users\\razan\\Desktop\\Dnet-website\\src\\app\\globals.css\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

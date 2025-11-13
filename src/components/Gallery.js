@@ -124,52 +124,65 @@ export default function Gallery() {
   useEffect(() => {
     const initCarousel = async () => {
       try {
-        const Swiper = (await import('swiper')).default
-        const { Navigation, Pagination, Autoplay, EffectFade } = await import('swiper/modules')
-        
-        // Initialize main carousel
-        new Swiper('.gallery-carousel', {
-          modules: [Navigation, Pagination, Autoplay, EffectFade],
-          loop: true,
-          speed: 1000,
-          effect: 'fade',
-          fadeEffect: {
-            crossFade: true
-          },
-          autoplay: {
-            delay: 5000,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true
-          },
-          navigation: {
-            nextEl: '.gallery-button-next',
-            prevEl: '.gallery-button-prev',
-          },
-          pagination: {
-            el: '.gallery-pagination',
-            type: 'bullets',
-            clickable: true
-          },
-          on: {
-            slideChange: function () {
-              // Add animation to content
-              const activeSlide = this.slides[this.activeIndex]
-              const content = activeSlide.querySelector('.carousel-content')
-              if (content) {
-                content.style.animation = 'none'
-                setTimeout(() => {
-                  content.style.animation = 'slideInUp 1s ease-out'
-                }, 100)
+        // Wait for page to be fully loaded
+        if (document.readyState === 'complete') {
+          const Swiper = (await import('swiper')).default
+          const { Navigation, Pagination, Autoplay, EffectFade } = await import('swiper/modules')
+
+          // Initialize main carousel
+          new Swiper('.gallery-carousel', {
+            modules: [Navigation, Pagination, Autoplay, EffectFade],
+            loop: true,
+            speed: 800,
+            effect: 'fade',
+            fadeEffect: {
+              crossFade: true
+            },
+            autoplay: {
+              delay: 5000,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true
+            },
+            navigation: {
+              nextEl: '.gallery-button-next',
+              prevEl: '.gallery-button-prev',
+            },
+            pagination: {
+              el: '.gallery-pagination',
+              type: 'bullets',
+              clickable: true
+            },
+            lazy: {
+              loadPrevNext: true,
+              loadPrevNextAmount: 1
+            },
+            on: {
+              slideChange: function () {
+                // Add animation to content
+                const activeSlide = this.slides[this.activeIndex]
+                const content = activeSlide.querySelector('.carousel-content')
+                if (content) {
+                  content.style.animation = 'none'
+                  setTimeout(() => {
+                    content.style.animation = 'slideInUp 1s ease-out'
+                  }, 100)
+                }
               }
             }
-          }
-        })
+          })
+        } else {
+          window.addEventListener('load', initCarousel)
+        }
       } catch (error) {
         console.error('Carousel initialization error:', error)
       }
     }
 
-    setTimeout(initCarousel, 100)
+    setTimeout(initCarousel, 200)
+
+    return () => {
+      window.removeEventListener('load', initCarousel)
+    }
   }, [])
 
   return (
@@ -188,14 +201,16 @@ export default function Gallery() {
               <div className="swiper-slide" key={index}>
                 <div className="carousel-slide">
                   <div className="carousel-image-wrapper">
-                    <Image 
-                      src={image.src} 
-                      alt={image.alt} 
-                      width={1920}
-                      height={800}
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      width={1200}
+                      height={600}
                       className="carousel-image"
                       style={{ objectFit: 'cover' }}
                       priority={index === 0}
+                      loading={index === 0 ? 'eager' : 'lazy'}
+                      quality={75}
                     />
                     <div className="carousel-overlay"></div>
                   </div>
@@ -253,13 +268,15 @@ export default function Gallery() {
                   title={image.alt}
                 >
                   <div className="gallery-img-wrapper">
-                    <Image 
-                      src={image.src} 
-                      alt={image.alt} 
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
                       width={400}
                       height={300}
                       className="gallery-img"
                       style={{ objectFit: 'cover' }}
+                      loading="lazy"
+                      quality={70}
                     />
                     <div className="gallery-overlay">
                       <div className="gallery-icon">

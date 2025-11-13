@@ -11,6 +11,7 @@ export default function OfficeRelocationPage() {
     title: 'Office Relocation & New Site Setup',
     subtitle: 'Seamless IT infrastructure deployment for your new location',
     icon: 'bi bi-building-fill',
+    heroImage: '/assets/img/carosel/networkcable.jpg',
     
     overview: (
       <div>

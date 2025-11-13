@@ -11,6 +11,7 @@ export default function SwitchingRoutingWiFiPage() {
     title: 'Switching, Routing & Wi-Fi',
     subtitle: 'Enterprise-grade network infrastructure for seamless connectivity',
     icon: 'bi bi-wifi',
+    heroImage: '/assets/img/carosel/switching_routing.jpg',
     
     overview: (
       <div>

@@ -302,10 +302,19 @@ img {
   white-space: nowrap;
 }
 
-.navmenu a:hover,
-.navmenu .active {
+.navmenu a:hover {
   color: var(--primary-color);
   background-color: var(--primary-lighter);
+}
+
+#navmenu ul li a.active,
+.header .navmenu ul li a.active,
+.navmenu ul li a.active,
+.navmenu li.active > a {
+  color: var(--primary-color) !important;
+  background-color: var(--primary-lighter) !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
 }
 
 .navmenu .dropdown {
@@ -428,12 +437,31 @@ img {
    HERO SECTION
    =================================== */
 .hero {
-  min-height: 90vh;
+  min-height: 65vh;
   display: flex;
   align-items: center;
   position: relative;
   overflow: hidden;
-  padding: 5rem 0;
+  padding: 4rem 0;
+  color: white;
+}
+
+/* Hero sections with gradient backgrounds (About, FAQ, Portfolio pages) */
+.hero h1,
+.hero h2,
+.hero h3,
+.hero p,
+.hero .breadcrumb-item,
+.hero .breadcrumb-item a {
+  color: white !important;
+}
+
+.hero .breadcrumb-item + .breadcrumb-item::before {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.hero .breadcrumb-item.active {
+  color: rgba(255, 255, 255, 0.9) !important;
 }
 
 .hero img {
@@ -445,12 +473,48 @@ img {
   z-index: -2;
 }
 
-.hero::before {
+/* Hero carousel slides - sliding from right to left */
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: translateX(100%);
+  transition: transform 10s ease-in-out;
+  z-index: 1;
+}
+
+.hero-slide.active {
+  transform: translateX(0);
+  z-index: 2;
+}
+
+.hero-slide.prev {
+  transform: translateX(-100%);
+  z-index: 1;
+}
+
+.hero-slide img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Blue overlay on each slide */
+.hero-slide::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(0, 102, 204, 0.3), rgba(0, 77, 153, 0.2));
-  z-index: -1;
+  background: linear-gradient(135deg, rgba(0, 102, 204, 0.3), rgba(0, 77, 153, 0.25));
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero .container {
+  z-index: 10;
+  position: relative;
 }
 
 .hero .welcome {
@@ -664,6 +728,26 @@ img {
   padding: 5rem 0;
 }
 
+.services-gradient-bg {
+  background: linear-gradient(135deg, #e8f3ff 0%, #d4e7ff 50%, #e8f3ff 100%);
+  position: relative;
+}
+
+.services-gradient-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 20% 50%, rgba(0, 102, 204, 0.08) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 80%, rgba(0, 102, 204, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.services-gradient-bg .container {
+  position: relative;
+  z-index: 1;
+}
+
 .service-card {
   background: white;
   border-radius: 16px;
@@ -760,6 +844,20 @@ img {
 .service-link:hover {
   color: var(--primary-dark);
   transform: translateX(4px);
+}
+
+/* Simplified service card hover (for homepage) */
+.card.service-card-hover {
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%) !important;
+  border: 1px solid #e0e7ff !important;
+}
+
+.card.service-card-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 102, 204, 0.15) !important;
+  border-color: var(--primary-color) !important;
+  background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%) !important;
 }
 
 .cta-box {
@@ -1712,14 +1810,6 @@ img {
   color: var(--white);
 }
 
-.service-hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(0, 102, 204, 0.95), rgba(0, 77, 153, 0.95));
-  z-index: 1;
-}
-
 .service-hero .breadcrumb {
   background: transparent;
   margin: 0;
@@ -1827,22 +1917,15 @@ img {
 }
 
 /* Enhanced Active State for Navigation */
-.navmenu a.active {
+#navmenu ul li a.active,
+.header .navmenu ul li a.active,
+.navmenu ul li a.active,
+.navmenu li.active > a {
   color: var(--primary-color) !important;
-  background-color: var(--primary-lighter);
+  background-color: var(--primary-lighter) !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
   position: relative;
-}
-
-.navmenu a.active::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 30px;
-  height: 3px;
-  background: var(--primary-color);
-  border-radius: 2px;
 }
 
 /* Active dropdown indicator */
@@ -2922,3 +3005,69 @@ img {
     color: var(--dark-color) !important;
   }
 }
+
+/* ===================================
+   ADDITIONAL UTILITY CLASSES
+   =================================== */
+
+/* Button utilities */
+.btn-pill {
+  border-radius: 50px;
+}
+
+.fw-semibold {
+  font-weight: 600;
+}
+
+/* Map placeholder utilities */
+.map-placeholder {
+  width: 100%;
+  height: 270px;
+  background: #e9ecef;
+  position: relative;
+}
+
+.map-placeholder-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+
+/* ===================================
+   DISABLE ANIMATIONS FOR PERFORMANCE
+   Remove this section if you want animations back
+   =================================== */
+
+/* Disable all AOS animations for instant display */
+[data-aos] {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+/* Disable animation transitions */
+[data-aos].aos-animate {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Make page feel instant and responsive */
+* {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0.15s !important; /* Keep minimal transitions for hover states */
+}
+
+/* Keep smooth scrolling but instant content display */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Optimize scrolling performance */
+.section {
+  will-change: auto;
+}
+

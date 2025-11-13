@@ -55,16 +55,13 @@ export default function RootLayout({ children }) {
         <Footer />
         
         {/* Scroll Top Button */}
-        <a 
-          href="#" 
-          id="scroll-top" 
+        <a
+          href="#"
+          id="scroll-top"
           className="scroll-top d-flex align-items-center justify-content-center"
         >
           <i className="bi bi-arrow-up-short"></i>
         </a>
-
-        {/* Preloader */}
-        <div id="preloader"></div>
 
         {/* Client-side initialization (AOS, GLightbox, Swiper, etc.) */}
         <ClientInit />

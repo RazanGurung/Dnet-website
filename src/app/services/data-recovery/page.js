@@ -11,6 +11,7 @@ export default function DataRecoveryPage() {
     title: 'Backup, Recovery & Data Protection',
     subtitle: 'Protect your critical business data with enterprise-grade backup solutions',
     icon: 'bi bi-shield-check',
+    heroImage: '/assets/img/carosel/databackup.jpg',
     
     overview: (
       <div>

@@ -11,6 +11,7 @@ export default function NetworkingCablingPage() {
     title: 'Networking & Cabling',
     subtitle: 'Professional structured cabling solutions for reliable, high-speed connectivity',
     icon: 'bi bi-hdd-network-fill',
+    heroImage: '/assets/img/carosel/networkcable.jpg',
     
     overview: (
       <div>

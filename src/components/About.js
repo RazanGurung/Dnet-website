@@ -9,12 +9,14 @@ export default function About() {
           {/* Left: Video/Image with Play Button */}
           <div className="col-lg-6 position-relative align-self-start" data-aos="fade-up" data-aos-delay="200">
             <figure className="position-relative m-0">
-              <Image 
-                src="/assets/img/about.jpg" 
-                className="img-fluid" 
-                alt="DNET technicians working on a network rack" 
+              <Image
+                src="/assets/img/about.jpg"
+                className="img-fluid"
+                alt="DNET technicians working on a network rack"
                 width={800}
                 height={600}
+                loading="lazy"
+                quality={75}
               />
               {/* YouTube Video Play Button */}
               <a 

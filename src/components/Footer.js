@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { CONTACT_INFO } from '@/config/contact'
 
 export default function Footer() {
   return (
@@ -26,21 +27,21 @@ export default function Footer() {
             <address className="footer-contact mb-2">
               <div className="d-flex align-items-start mb-1">
                 <i className="bi bi-geo-alt me-2"></i>
-                <div>520 N Martin Luther King Rd, Winston-Salem, NC 27101</div>
+                <div>{CONTACT_INFO.address.full}</div>
               </div>
               <div className="d-flex align-items-start mb-1">
                 <i className="bi bi-telephone me-2"></i>
                 <div>
-                  <a href="tel:+15157716993" className="text-decoration-none">
-                    +1 (515) 771-6993
+                  <a href={CONTACT_INFO.phone.link} className="text-decoration-none">
+                    {CONTACT_INFO.phone.display}
                   </a>
                 </div>
               </div>
               <div className="d-flex align-items-start">
                 <i className="bi bi-envelope me-2"></i>
                 <div>
-                  <a href="mailto:Dnetworkingtechnology@gmail.com" className="text-decoration-none">
-                    Dnetworkingtechnology@gmail.com
+                  <a href={`mailto:${CONTACT_INFO.email.primary}`} className="text-decoration-none">
+                    {CONTACT_INFO.email.primary}
                   </a>
                 </div>
               </div>
@@ -50,24 +51,32 @@ export default function Footer() {
               <Link href="/#contact" className="btn btn-primary btn-sm">
                 <i className="bi bi-chat-dots me-1"></i> Get a Quote
               </Link>
-              <a href="tel:+15157716993" className="btn btn-outline-secondary btn-sm">
+              <a href={CONTACT_INFO.phone.link} className="btn btn-outline-secondary btn-sm">
                 <i className="bi bi-telephone me-1"></i> Call Now
               </a>
             </div>
 
             <div className="social-links d-flex gap-2">
-              <a href="#" aria-label="Twitter/X" className="text-body">
-                <i className="bi bi-twitter-x"></i>
-              </a>
-              <a href="#" aria-label="Facebook" className="text-body">
-                <i className="bi bi-facebook"></i>
-              </a>
-              <a href="#" aria-label="Instagram" className="text-body">
-                <i className="bi bi-instagram"></i>
-              </a>
-              <a href="#" aria-label="LinkedIn" className="text-body">
-                <i className="bi bi-linkedin"></i>
-              </a>
+              {CONTACT_INFO.social.twitter && (
+                <a href={CONTACT_INFO.social.twitter} aria-label="Twitter/X" className="text-body" target="_blank" rel="noopener noreferrer">
+                  <i className="bi bi-twitter-x"></i>
+                </a>
+              )}
+              {CONTACT_INFO.social.facebook && (
+                <a href={CONTACT_INFO.social.facebook} aria-label="Facebook" className="text-body" target="_blank" rel="noopener noreferrer">
+                  <i className="bi bi-facebook"></i>
+                </a>
+              )}
+              {CONTACT_INFO.social.instagram && (
+                <a href={CONTACT_INFO.social.instagram} aria-label="Instagram" className="text-body" target="_blank" rel="noopener noreferrer">
+                  <i className="bi bi-instagram"></i>
+                </a>
+              )}
+              {CONTACT_INFO.social.linkedin && (
+                <a href={CONTACT_INFO.social.linkedin} aria-label="LinkedIn" className="text-body" target="_blank" rel="noopener noreferrer">
+                  <i className="bi bi-linkedin"></i>
+                </a>
+              )}
             </div>
           </div>
 
@@ -85,9 +94,6 @@ export default function Footer() {
                 <Link href="/services/security-access">Security, CCTV &amp; Access</Link>
               </li>
               <li>
-                <Link href="/services/office-relocation">Office Relocation &amp; New Sites</Link>
-              </li>
-              <li>
                 <Link href="/services/data-recovery">Backup, Recovery &amp; Data</Link>
               </li>
               <li>
@@ -103,11 +109,13 @@ export default function Footer() {
           <div className="col-lg-2 col-md-6 footer-links">
             <h4 className="h6">Company</h4>
             <ul className="list-unstyled">
-              <li><Link href="/#about">About</Link></li>
+              <li><Link href="/about">About</Link></li>
+              <li><Link href="/portfolio">Portfolio</Link></li>
               <li><Link href="/#testimonials">Testimonials</Link></li>
-              <li><Link href="/#gallery">Gallery</Link></li>
-              <li><Link href="/#faq">FAQs</Link></li>
+              <li><Link href="/faq">FAQs</Link></li>
               <li><Link href="/#contact">Contact</Link></li>
+              <li><Link href="/privacy">Privacy Policy</Link></li>
+              <li><Link href="/terms">Terms of Service</Link></li>
             </ul>
           </div>
 
@@ -148,32 +156,28 @@ export default function Footer() {
 
       {/* Copyright */}
       <div className="container copyright text-center mt-4">
-        <p>
-          © <span>Copyright</span> <strong className="px-1 sitename">Digital Network Engineering Technology</strong>{' '}
+        <p className="mb-0">
+          © {new Date().getFullYear()} <strong className="px-1 sitename">Digital Network Engineering Technology</strong>{' '}
           <span>All Rights Reserved</span>
         </p>
-        <div className="credits">
-          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> Distributed by{' '}
-          <a href="https://themewagon.com">ThemeWagon</a>
-        </div>
       </div>
 
       {/* Optional LocalBusiness schema for SEO */}
-      <script 
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "LocalBusiness",
-            "name": "Digital Network Engineering Technology",
-            "telephone": "+1-515-771-6993",
-            "email": "Dnetworkingtechnology@gmail.com",
+            "name": CONTACT_INFO.fullName,
+            "telephone": CONTACT_INFO.phone.display,
+            "email": CONTACT_INFO.email.primary,
             "address": {
               "@type": "PostalAddress",
-              "streetAddress": "520 N Martin Luther King Rd",
-              "addressLocality": "Winston-Salem",
-              "addressRegion": "NC",
-              "postalCode": "27101",
+              "streetAddress": CONTACT_INFO.address.street,
+              "addressLocality": CONTACT_INFO.address.city,
+              "addressRegion": CONTACT_INFO.address.state,
+              "postalCode": CONTACT_INFO.address.zip,
               "addressCountry": "US"
             },
             "areaServed": ["Winston-Salem", "Greensboro", "High Point", "Triad, NC"],

@@ -2,8 +2,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
 
-export default function ServiceLayout({ 
-  title, 
+export default function ServiceLayout({
+  title,
   subtitle,
   heroImage,
   icon,
@@ -17,16 +17,20 @@ export default function ServiceLayout({
   return (
     <>
       {/* Hero Section */}
-      <section className="service-hero section" style={{ 
-        background: 'linear-gradient(135deg, var(--primary-color), var(--primary-dark))',
+      <section className="service-hero section" style={{
         minHeight: '50vh',
         display: 'flex',
         alignItems: 'center',
         position: 'relative',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        backgroundImage: heroImage ? `url('${heroImage}')` : 'linear-gradient(135deg, var(--primary-color), var(--primary-dark))',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
       }}>
+
         <div className="container position-relative" style={{ zIndex: 2 }}>
-          <nav aria-label="breadcrumb" className="mb-4">
+          <nav aria-label="breadcrumb" className="mb-4" style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.7)' }}>
             <ol className="breadcrumb">
               <li className="breadcrumb-item">
                 <Link href="/" className="text-white text-decoration-none opacity-75">Home</Link>
@@ -55,8 +59,8 @@ export default function ServiceLayout({
                   <i className={`${icon} text-white`} style={{ fontSize: '40px' }}></i>
                 </div>
                 <div>
-                  <h1 className="text-white mb-2">{title}</h1>
-                  <p className="text-white opacity-90 lead mb-0">{subtitle}</p>
+                  <h1 className="text-white mb-2" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.7)' }}>{title}</h1>
+                  <p className="text-white opacity-90 lead mb-0" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.7)' }}>{subtitle}</p>
                 </div>
               </div>
             </div>

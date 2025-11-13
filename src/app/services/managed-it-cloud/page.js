@@ -11,6 +11,7 @@ export default function ManagedITCloudPage() {
     title: 'Managed IT & Cloud Services',
     subtitle: 'Comprehensive IT support and cloud solutions for your business',
     icon: 'bi bi-cloud-check-fill',
+    heroImage: '/assets/img/carosel/landingpage.jpg',
     
     overview: (
       <div>

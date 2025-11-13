@@ -11,6 +11,7 @@ export default function SecurityAccessPage() {
     title: 'Security, CCTV & Access Control',
     subtitle: 'Comprehensive security solutions to protect what matters most',
     icon: 'bi bi-shield-lock-fill',
+    heroImage: '/assets/img/carosel/security.jpg',
     
     overview: (
       <div>
